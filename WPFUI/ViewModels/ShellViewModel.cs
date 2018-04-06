@@ -10,12 +10,18 @@ namespace WPFUI.ViewModels
 {
     public class ShellViewModel : Screen
     {
+        private string _firstName = "Tim";
+        private string _lastname;
+        private string _fullname;
+        private BindableCollection<PersonModel> _people = new BindableCollection<PersonModel>();
+        private PersonModel _selectedperson;
 
         public ShellViewModel()
         {
-            //constructor
+                
         }
-        private string _firstName = "Tim";
+
+        
         public string FirstName
         {
             get {
@@ -28,8 +34,6 @@ namespace WPFUI.ViewModels
                 NotifyOfPropertyChange(() => FullName);
             }
         }
-
-        private string _lastname;
         public string LastName
         {
             get {
@@ -41,9 +45,6 @@ namespace WPFUI.ViewModels
                 NotifyOfPropertyChange(() => FullName);
             }
         }
-
-        private string _fullname;
-
         public string FullName
         {
             get {
@@ -53,28 +54,39 @@ namespace WPFUI.ViewModels
         }
 
         //bindable collection is part of Caliburn.Micro
-        private BindableCollection<PersonModel> _people = new BindableCollection<PersonModel>();
-        public BindableCollection<PersonModel> People
+        internal BindableCollection<PersonModel> People1
         {
-            get { return _people; }
-            set { _people = value; }
+            //shorthand way of doing getter and setter
+            get => _people; set => _people = value;
         }
-
-
-        private PersonModel _selectedperson;
-        public PersonModel SelectedPerson
+        internal PersonModel SelectedPerson
         {
-            get { return _selectedperson; }
+            get
+            {
+                return _selectedperson;
+            }
             set
             {
                 _selectedperson = value;
-                NotifyOfPropertyChange(( => SelectedPerson));
-
+                NotifyOfPropertyChange(() => SelectedPerson);
             }
+
         }
-
-
-
-
     }
 }
+
+        //underneath from video - did not work wth public scope - changed to internal
+        // public BindableCollection<PersonModel> People
+        //{
+        // get { return _people; }
+        // set { _people = value; }
+        // }
+        //public PersonModel SelectedPerson
+        //{
+        //get { return _selectedperson; }
+        //set
+        //{
+        //_selectedperson = value;
+
+
+        //}
