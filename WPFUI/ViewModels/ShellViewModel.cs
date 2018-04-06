@@ -18,7 +18,9 @@ namespace WPFUI.ViewModels
 
         public ShellViewModel()
         {
-                
+            People.Add(new PersonModel { FirstName = "Tim", LastName = "Corey" });
+            People.Add(new PersonModel { FirstName = "Paul", LastName = "Treadwell" });
+            People.Add(new PersonModel { FirstName = "Sidney", LastName = "tRex" });
         }
 
         
@@ -54,12 +56,12 @@ namespace WPFUI.ViewModels
         }
 
         //bindable collection is part of Caliburn.Micro
-        internal BindableCollection<PersonModel> People1
+        public BindableCollection<PersonModel> People
         {
             //shorthand way of doing getter and setter
             get => _people; set => _people = value;
         }
-        internal PersonModel SelectedPerson
+        public PersonModel SelectedPerson
         {
             get
             {
