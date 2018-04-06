@@ -8,9 +8,9 @@ using WPFUI.Models;
 
 namespace WPFUI.ViewModels
 {
-    public class ShellViewModel : Screen
+    public class ShellViewModel : Conductor<object>
     {
-        private string _firstName = "Tim";
+        private string _firstname = "Tim";
         private string _lastname;
         private string _fullname;
         private BindableCollection<PersonModel> _people = new BindableCollection<PersonModel>();
@@ -22,15 +22,13 @@ namespace WPFUI.ViewModels
             People.Add(new PersonModel { FirstName = "Paul", LastName = "Treadwell" });
             People.Add(new PersonModel { FirstName = "Sidney", LastName = "tRex" });
         }
-
-        
         public string FirstName
         {
             get {
-                return _firstName;
+                return _firstname;
             }
             set {
-                _firstName = value;
+                _firstname = value;
                 //this part below auto changes any bindign items
                 NotifyOfPropertyChange(() => FirstName);
                 NotifyOfPropertyChange(() => FullName);
@@ -74,21 +72,47 @@ namespace WPFUI.ViewModels
             }
 
         }
+
+
+        //the firstName and lastName parameter by convention, because of caliburn Micro, connect to the FirstName and LastName properties defined in here, which saves you some coding / logic as it handles things for you
+
+        
+        //also, I think the CanClearText recognises that there is a button component called ClearText, and a corresponding method, and again, connects together
+
+        public bool CanClearText(string firstName, string lastName) //=> !String.IsNullOrWhiteSpace(firstName) || !String.IsNullOrWhiteSpace(lastName);
+        //{
+        //    return !String.IsNullOrWhiteSpace(firstName) || !String.IsNullOrWhiteSpace(lastName);
+        //}
+        {
+           if (String.IsNullOrWhiteSpace(firstName) && String.IsNullOrWhiteSpace(lastName))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+        }
+        public void ClearText(string firstName, string lastName)
+        {
+   
+                FirstName = "";
+                LastName = "";
+
+           
+            //NotifyOfPropertyChange(() => FirstName);
+        }
+
+      
+        public void LoadPageOne()
+        {
+            ActivateItem(new FirstChildViewModel());
+        }
+
+        public void LoadPageTwo()
+        {
+            ActivateItem(new SecondChildViewModel());
+        }
     }
 }
-
-        //underneath from video - did not work wth public scope - changed to internal
-        // public BindableCollection<PersonModel> People
-        //{
-        // get { return _people; }
-        // set { _people = value; }
-        // }
-        //public PersonModel SelectedPerson
-        //{
-        //get { return _selectedperson; }
-        //set
-        //{
-        //_selectedperson = value;
-
-
-        //}

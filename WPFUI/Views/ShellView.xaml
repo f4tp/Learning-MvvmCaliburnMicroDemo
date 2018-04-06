@@ -21,6 +21,8 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
@@ -39,5 +41,27 @@
 
             <!-- indirectly connected to model via binding code-->
         <ComboBox x:Name="People" Grid.Column="1" Grid.Row="3" SelectedItem="{Binding Path=SelectedPerson, Mode=OneWayToSource}" DisplayMemberPath="FirstName" />
+        
+        <!-- connected via name to model_property -->
+        <!-- accessing a property of an objeect is not done with dot notation, but instead and underscore - like below - SelectedPerson_LastName -->
+        <TextBlock x:Name="SelectedPerson_LastName" Grid.Row="3" Grid.Column="2" />
+        
+        <!-- Row 4 -->
+            <Button x:Name="ClearText" Grid.Row="4" Grid.Column="1">
+                Clear Names
+            </Button>   
+        
+        <!-- Row 5 -->
+        <Button x:Name="LoadPageOne" Grid.Row="5" Grid.Column="1">
+            Load Page One
+        </Button>
+
+        <Button x:Name="LoadPageTwo" Grid.Row="5" Grid.Column="2">
+            Load Page Two
+        </Button>
+
+        <!-- Row 6 -->
+        <!-- ActiveItem is a keyword in Caliburn Micro that says this is teh active child form -->
+        <ContentControl x:Name="ActiveItem" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="4"/>
     </Grid>
 </Window>
